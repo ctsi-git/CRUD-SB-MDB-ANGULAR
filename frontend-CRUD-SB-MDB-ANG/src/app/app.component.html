@@ -1,0 +1,63 @@
+<div class="container py-5">
+  <div class="rounded shadow p-5 d-flex">
+    <img class="p-3" src="../assets/img/check-list.png" alt="Tareas" width="120" height="120">
+    <div>
+      <h3 class="text-primary">Bienvenido a Tareas App</h3>
+      <h5 class="text-secondary">
+        Esta app permite consultar, crear, actualiza y/o borrar tus tareas
+      </h5>
+      <hr>
+      <p class="text-muted">
+        Esta app fue desarrollada con SpringBoot, Angular y MongoDB
+      </p>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <h3>Lista de Tareas</h3>
+        <div class="my-5"></div>
+        <div *ngFor="let tarea of tareas" class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div class="fw-bold"> {{tarea.nombre}} </div>
+              <div class="text-muted">
+                <i class="fa fa-edit cursor-pointer" title="Editar" (click)="edit(tarea)"></i>
+                <i class="fa fa-trash ms-2 cursor-pointer" title="Borrar" (click)="delete(tarea)"></i>
+              </div>
+            </div>
+            <div>
+              <small class="text-success" *ngIf="tarea.completado; else pendiente">
+                <i class="fa fa-check-circle"></i> Completa
+              </small>
+              <ng-template #pendiente>
+                <small class="text-muted">
+                  <i class="fa fa-clock"></i> Pendiente
+                </small>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>{{tarea.id ? "Editar":"Nueva"}} Tarea</h3>
+        <form class="mt-5" (ngSubmit)="save()">
+          <div class="mb-3 form-floating">
+            <input id="nombre" type="text" placeholder="Nombre" name="nombre" class="form-control" [(ngModel)]="tarea.nombre">
+            <label for="nombre">Nombre</label>
+          </div>
+          <div class="mb-3 form-check">
+            <label for="completado">Completado?</label>
+            <input id="completado" type="checkbox" name="completado" class="form-check-input" [(ngModel)]="tarea.completado">
+          </div>
+
+          <div class="text-end">
+            <button class="btn btn-primary btn-lg"> Guardar </button>
+          </div>
+        </form>
+
+    </div>
+
+  </div>
+
+</div>
